@@ -1,0 +1,346 @@
+import pyttsx3
+import time
+from collections import OrderedDict
+import datetime
+import pytz
+from tzlocal import get_localzone
+import threading
+import concurrent.futures
+import signal
+sys_local = get_localzone()  # pytz compatible time zone is retutned
+
+
+#------------search-functions------
+
+
+def GetTimeZoneName(timezone, country_code):
+
+    # see if it's already a valid time zone name
+    if timezone in pytz.all_timezones:
+        return timezone
+
+    # if it's a number value, then use the Etc/GMT code
+    try:
+        offset = int(timezone)
+        if offset > 0:
+            offset = '+' + str(offset)
+        else:
+            offset = str(offset)
+        return 'Etc/GMT' + offset
+    except ValueError:
+        pass
+
+    # look up the abbreviation
+    country_tzones = None
+    try:
+        country_tzones = pytz.country_timezones[country_code]
+    except:
+        pass
+    set_zones = set()
+    if country_tzones is not None and len(country_tzones) > 0:
+        for name in country_tzones:
+            tzone = pytz.timezone(name)
+            for utcoffset, dstoffset, tzabbrev in getattr(tzone, '_transition_info', [[None, None, datetime.datetime.now(tzone).tzname()]]):
+                if tzabbrev.upper() == timezone.upper():
+                    set_zones.add(name)
+        if len(set_zones) > 0:
+            return min(set_zones, key=len)
+
+        # none matched, at least pick one in the right country
+        return min(country_tzones, key=len)
+
+    # invalid country, just try to match the timezone abbreviation to any time zone
+    for name in pytz.all_timezones:
+        tzone = pytz.timezone(name)
+        for utcoffset, dstoffset, tzabbrev in getattr(tzone, '_transition_info', [[None, None, datetime.datetime.now(tzone).tzname()]]):
+            if tzabbrev.upper() == timezone.upper():
+                set_zones.add(name)
+
+    if len(set_zones) > 0:
+        return min(set_zones, key=len)
+    return "-1"
+
+def raise_timeout(signum, frame):
+    print("ALARM signal received")
+#------------Threads--------------
+skip = False
+next_c = False
+start = True
+enetred_in_io = True
+read_inp=True
+signal.signal(signal.SIGALRM, raise_timeout)
+
+def input_with_timeout():
+     inp=''
+     print("runn signal")
+     try:
+        inp=input()
+     except:
+        pass
+     return inp
+
+def sleep(t):
+    count=0
+    global skip, next_c, start,reaction_time
+    reaction_time=int(reaction_time)
+    print(t)
+    while(not skip and not next_c and start and int(t)>0):
+        time.sleep(reaction_time)
+        t-=reaction_time
+        count+=reaction_time
+    print("got in sleep",count,int(t))
+    if(count!=int(t)):
+        return -1
+    else:
+        return 0
+def print_speak():
+        global skip, next_c, start
+        while(True):
+            if(start):
+                for values in events:
+                    if(next_c or not start):
+                        next_c=False
+                        break
+                    if(skip):
+                        skip = False
+                        continue
+                    engine.say(f"Coming,up next {values} in")
+                    for i in range(standard_time, 0, -1):
+                        engine.say(f'{i} ')
+                    engine.runAndWait()
+                    print(values, events[values])
+                    alloted_time = per_iteration_time * events[values]
+                    notify_before = notification_after * alloted_time
+                    # time_left_until_pop_up
+                    if(sleep(alloted_time - notify_before - standard_time)!=0):
+                        continue
+                    print("notify")
+                    engine.say("pop-pop")
+                    engine.runAndWait()
+                    if(standard_time < notify_before):
+                        pass
+                        if(sleep(notify_before - standard_time)!=0):  # complete total time
+                           continue#continue and handel in case any flag is changed
+                    else:
+                        engine.say("skipping ahead,very less time")
+                        engine.runAndWait()
+                    read_inp=False
+                print("Thrown out,must be called")
+                return#support first break stateement
+
+            else:
+                print("thread not started yet")
+                time.sleep(reaction_time)
+
+    # return -1
+
+
+def listen():
+    global skip, next_c, start
+    while read_inp:
+        signal.alarm(2)
+        enterd = input_with_timeout()
+        print("entered value",enterd,type(enterd))
+        if(enterd == 'skip'or enterd == '/s'):
+            skip = True
+        if(enterd == 'next'or enterd == '/n'):
+            next_c = True
+            return True
+        if(enterd == 'enter'or enterd == None or enterd == ''):
+            start = True
+        if (enterd == 'quit' or enterd == '/q'):
+            start=False
+            return False
+
+def run_threads(print_thread,per_iteration_time,available_total_time,no_of_iteration):
+    global skip, next_c, start, reaction_time,enetred_in_io
+    diff=0
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        while (enetred_in_io and no_of_iteration > 0):
+            start_t = time.time()
+            available_total_time -= diff
+            print(f"this ran in {diff} despite {per_iteration_time}")
+            per_iteration_time = available_total_time / no_of_iteration
+            print(f"nxt time is {per_iteration_time}")
+            read_inp = True
+            print(no_of_iteration, "   ", print_thread.is_alive())
+            if (print_thread.is_alive() is not True):  # conditional check for ruunning thread thread first time
+                print("entered thread")
+                pass
+            else:
+                print_thread.join()
+                # while(print_thread.is_alive() is not True):# to make new thread for next phase and wait until previous rerturns
+                print("thread made in while loop")
+            print_thread = threading.Thread(target=print_speak)
+            print_thread.start()
+            print("excutor called")
+            # future_print = executor.submit(print_speak)
+            future = executor.submit(listen,daemon=True)
+            # return_speak = future_print.result()
+            enetred_in_io = future.result()
+            print("returned io ", enetred_in_io)
+            diff = time.time() - start_t
+            no_of_iteration -= 1
+            # if(return_speak == -1):
+            #     enetred_in_io = False
+            #     break
+        print_thread.join()
+# -----------Input-Valus-----------
+
+
+
+# entered_duration = '00:10:00'
+no_of_iteration = 4
+rate_value = 175
+words = 100
+events = OrderedDict({"Think Phase": 0.1, "Make Test Case": .2,
+                      "write Approach": .3, "Implement Phase": .4})  # percantages
+# # yyy-mm-dd
+# entered_date = '2020-04-19'
+# input('Enter Time Of commencing: in HH:MM:SS')
+# # 24 hh:mm:ss
+# entered_time = '02:30:00'
+standard_time = 5
+notification_after = 1 / 3  # of total time left
+reaction_time=1
+manual_mode=False
+#---------------Calculation-------------
+c=input("""if u wish to start now press enter key or to
+        enter time manually press any other key""")
+if(c==""or c==None):
+    timer_time=0
+    manual_mode=True
+else:
+     while True:#for try catch until final object creation
+        while True:
+            input("""Enter Date Of commencing (in yyyy-mm-dd) 
+            please consider time zone while writing:""")  # yyy-mm-dd
+            entered_date = '2020-04-19'
+            list_date=list(map(int, entered_date.split('-')))
+            try:
+                if (list_date[0] > -1) :
+                    if (list_date[1] > -1) and (list_date[1] < 13):
+                        if (list_date[2] > -1) and (list_date[2] < 32):
+                            break#first while break
+                        else:
+                            print("Invalid seconds")
+                    else:
+                        print("Invalid minutes")
+                else:
+                    print("Invalid hours")
+            except:  # for invalid strings
+                print("Sorry, INVALID date")
+        while True:
+            input('Enter Time Of commencing: in HH:MM:SS')
+            # 24 hh:mm:ss
+            entered_time = '02:30:00'
+            list_time=list(map(int, entered_time.split(':')))
+            try:
+                if (list_time[0] > -1) and (list_time[0] < 25):
+                    if (list_time[1] > -1) and (list_time[1] < 60):
+                        if (list_time[2] > -1) and (list_time[2] < 60):
+                            break
+                        else:
+                            print("Invalid seconds")
+                    else:
+                        print("Invalid minutes")
+                else:
+                    print("Invalid hours")
+            except:  # for invalid strings
+                print("Sorry, INVALID Time")
+        while True:
+            # gets string futher convert to time zone object
+            print("Enter timezones Olson timezones are used ")
+            print("Enter abbreviation used if unsure, to skip press enter and enter country code ")
+            abb=input()
+            if(abb==None or abb==""):
+                abb="XXX"
+                break
+            elif(abb.length()==3):
+                break
+            else:
+                print("please ensure timezone is of maximum 3 length ")
+        while True:
+            countrty_code=input("Enter 2 alphabet country code (may skip for timezones like utc..)")
+            if (countrty_code == None or countrty_code == ""):
+                countrty_code = "XX"
+            t1 = GetTimeZoneName(abb, countrty_code)
+            if(t1=='-1'):
+                print("No time zones found please skip")
+                continue
+            print(t1)
+        try:
+            datetime_entered_unaware = datetime.datetime(*list_date, *list_time)
+        except:
+            print("something went wrong please check dates and time with leap year and other mistakes")
+            continue
+        datetime_entered_aware = pytz.timezone(t1).localize(datetime_entered_unaware)
+        datetime_local_unaware = datetime.datetime.now()
+        datetime_local_aware = sys_local.localize(datetime_local_unaware)
+        print("time being")
+        print(datetime_local_aware)
+        print(datetime_entered_aware)
+        diff = datetime_entered_aware - datetime_local_aware
+        if(datetime_entered_aware < datetime_local_aware):
+            print("schedule entered is a past event ",
+                  datetime_local_aware + diff, "\nas per " + str(sys_local))  # reenter date adn time
+        else:
+            print("schedule entered will start at ",
+                  datetime_local_aware + diff, "\n-as per " + str(sys_local))
+        break
+while True:
+    days_entered=int(input("Enter No. of days in duration :"))
+    if(days_entered>-1):
+        break
+    print("Sorry, INVALID date")
+while True:
+    input('Enter Duration In Total(HH:MM:SS):')
+    entered_duration = '00:10:00'
+    converted_dur = list(map(int, entered_duration.split(':')))
+    try:
+        if (converted_dur[0]> -1) and (converted_dur[0]<25) :
+            if(converted_dur[1]> -1) and (converted_dur[1]<60):
+                if (converted_dur[2] > -1) and (converted_dur[2] < 60):
+                    break
+                else:
+                    print("Invalid seconds")
+            else:
+                print("Invalid minutes")
+        else:
+            print("Invalid hours")
+    except:#for invalid strings
+        print("Sorry, INVALID Time")
+time_delta_ob_duration = datetime.timedelta(
+    days=days_entered, hours=converted_dur[0], minutes=converted_dur[1], seconds=converted_dur[2])
+# subtracting a min for time taken to speak all those words rate==175,words pm
+total_time = time_delta_ob_duration.total_seconds()
+print(total_time, time_delta_ob_duration)
+available_total_time=total_time
+per_iteration_time = available_total_time / no_of_iteration
+print(per_iteration_time)
+#0s seconds at start
+#----------qq-----------
+# values=events.items()
+# #cur is iterator for keys in dictionary as per indexing
+# for cur in range(len(values)):
+def onWord(name, location, length):
+    if skip or not start or next_c:
+       engine.stop()
+
+engine = pyttsx3.init()
+rate = engine.getProperty('rate')
+engine.setProperty('rate', rate_value)
+engine.connect('started-word', onWord)
+
+
+
+# voices = engine.getProperty('voices')
+# # engine.setProperty('voice', voices[0].id)
+
+print_thread = threading.Thread(target=print_speak)
+print("timer time",timer_time)
+# return_value = True
+main_call_with_timer=threading.Timer(timer_time,run_threads,[print_thread,per_iteration_time,available_total_time,no_of_iteration])
+main_call_with_timer.start()
+
+

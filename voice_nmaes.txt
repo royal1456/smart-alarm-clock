@@ -1,0 +1,414 @@
+Voice:
+ - ID: afrikaans
+ - Name: afrikaans
+ - Languages: ['\x05af']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: aragonese
+ - Name: aragonese
+ - Languages: ['\x05an']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: bulgarian
+ - Name: bulgarian
+ - Languages: ['\x05bg']
+ - Gender: None
+ - Age: None
+Voice:
+ - ID: bosnian
+ - Name: bosnian
+ - Languages: ['\x05bs']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: catalan
+ - Name: catalan
+ - Languages: ['\x05ca']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: czech
+ - Name: czech
+ - Languages: ['\x05cs']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: welsh
+ - Name: welsh
+ - Languages: ['\x05cy']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: danish
+ - Name: danish
+ - Languages: ['\x05da']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: german
+ - Name: german
+ - Languages: ['\x05de']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: greek
+ - Name: greek
+ - Languages: ['\x05el']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: default
+ - Name: default
+ - Languages: ['\x05en']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: english
+ - Name: english
+ - Languages: ['\x02en-gb']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: en-scottish
+ - Name: en-scottish
+ - Languages: ['\x05en-sc']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: english-north
+ - Name: english-north
+ - Languages: ['\x05en-uk-north']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: english_rp
+ - Name: english_rp
+ - Languages: ['\x05en-uk-rp']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: english_wmids
+ - Name: english_wmids
+ - Languages: ['\x05en-uk-wmids']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: english-us
+ - Name: english-us
+ - Languages: ['\x02en-us']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: en-westindies
+ - Name: en-westindies
+ - Languages: ['\x05en-wi']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: esperanto
+ - Name: esperanto
+ - Languages: ['\x05eo']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: spanish
+ - Name: spanish
+ - Languages: ['\x05es']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: spanish-latin-am
+ - Name: spanish-latin-am
+ - Languages: ['\x05es-la']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: estonian
+ - Name: estonian
+ - Languages: ['\x05et']
+ - Gender: None
+ - Age: None
+Voice:
+ - ID: persian
+ - Name: persian
+ - Languages: ['\x05fa']
+ - Gender: None
+ - Age: None
+Voice:
+ - ID: persian-pinglish
+ - Name: persian-pinglish
+ - Languages: ['\x05fa-pin']
+ - Gender: None
+ - Age: None
+Voice:
+ - ID: finnish
+ - Name: finnish
+ - Languages: ['\x05fi']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: french-Belgium
+ - Name: french-Belgium
+ - Languages: ['\x05fr-be']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: french
+ - Name: french
+ - Languages: ['\x05fr-fr']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: irish-gaeilge
+ - Name: irish-gaeilge
+ - Languages: ['\x05ga']
+ - Gender: None
+ - Age: None
+Voice:
+ - ID: greek-ancient
+ - Name: greek-ancient
+ - Languages: ['\x05grc']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: hindi
+ - Name: hindi
+ - Languages: ['\x05hi']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: croatian
+ - Name: croatian
+ - Languages: ['\x05hr']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: hungarian
+ - Name: hungarian
+ - Languages: ['\x05hu']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: armenian
+ - Name: armenian
+ - Languages: ['\x05hy']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: armenian-west
+ - Name: armenian-west
+ - Languages: ['\x05hy-west']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: indonesian
+ - Name: indonesian
+ - Languages: ['\x05id']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: icelandic
+ - Name: icelandic
+ - Languages: ['\x05is']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: italian
+ - Name: italian
+ - Languages: ['\x05it']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: lojban
+ - Name: lojban
+ - Languages: ['\x05jbo']
+ - Gender: None
+ - Age: None
+Voice:
+ - ID: georgian
+ - Name: georgian
+ - Languages: ['\x05ka']
+ - Gender: None
+ - Age: None
+Voice:
+ - ID: kannada
+ - Name: kannada
+ - Languages: ['\x05kn']
+ - Gender: None
+ - Age: None
+Voice:
+ - ID: kurdish
+ - Name: kurdish
+ - Languages: ['\x05ku']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: latin
+ - Name: latin
+ - Languages: ['\x05la']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: lingua_franca_nova
+ - Name: lingua_franca_nova
+ - Languages: ['\x05lfn']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: lithuanian
+ - Name: lithuanian
+ - Languages: ['\x05lt']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: latvian
+ - Name: latvian
+ - Languages: ['\x05lv']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: macedonian
+ - Name: macedonian
+ - Languages: ['\x05mk']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: malayalam
+ - Name: malayalam
+ - Languages: ['\x05ml']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: malay
+ - Name: malay
+ - Languages: ['\x05ms']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: nepali
+ - Name: nepali
+ - Languages: ['\x05ne']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: dutch
+ - Name: dutch
+ - Languages: ['\x05nl']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: norwegian
+ - Name: norwegian
+ - Languages: ['\x05no']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: punjabi
+ - Name: punjabi
+ - Languages: ['\x05pa']
+ - Gender: None
+ - Age: None
+Voice:
+ - ID: polish
+ - Name: polish
+ - Languages: ['\x05pl']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: brazil
+ - Name: brazil
+ - Languages: ['\x05pt-br']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: portugal
+ - Name: portugal
+ - Languages: ['\x05pt-pt']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: romanian
+ - Name: romanian
+ - Languages: ['\x05ro']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: russian
+ - Name: russian
+ - Languages: ['\x05ru']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: slovak
+ - Name: slovak
+ - Languages: ['\x05sk']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: albanian
+ - Name: albanian
+ - Languages: ['\x05sq']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: serbian
+ - Name: serbian
+ - Languages: ['\x05sr']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: swedish
+ - Name: swedish
+ - Languages: ['\x05sv']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: swahili-test
+ - Name: swahili-test
+ - Languages: ['\x05sw']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: tamil
+ - Name: tamil
+ - Languages: ['\x05ta']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: turkish
+ - Name: turkish
+ - Languages: ['\x05tr']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: vietnam
+ - Name: vietnam
+ - Languages: ['\x05vi']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: vietnam_hue
+ - Name: vietnam_hue
+ - Languages: ['\x05vi-hue']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: vietnam_sgn
+ - Name: vietnam_sgn
+ - Languages: ['\x05vi-sgn']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: Mandarin
+ - Name: Mandarin
+ - Languages: ['\x05zh']
+ - Gender: male
+ - Age: None
+Voice:
+ - ID: cantonese
+ - Name: cantonese
+ - Languages: ['\x05zh-yue']
+ - Gender: male
+ - Age: None
